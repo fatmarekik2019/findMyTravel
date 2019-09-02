@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Publication;
 import projet.spring.FindMyTravel.repositories.PublicationRepository;
@@ -21,12 +22,14 @@ public class PublicationServiceImpl implements PublicationService{
 	@Autowired
 	PublicationRepository pr;
 
+	@Transactional
 	@Override
 	public ResponseEntity<Publication> addPublication(Publication p) {
 		em.persist(p);
 		return ResponseEntity.ok().build();
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<Publication> findOnePublication(Integer id) {
 		Publication p = em.find(Publication.class, id);

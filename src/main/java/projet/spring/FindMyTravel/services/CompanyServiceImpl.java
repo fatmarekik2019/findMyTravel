@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.repositories.CompanyRepository;
@@ -17,15 +18,18 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Autowired
 	EntityManager em;
+	
 	@Autowired
 	CompanyRepository cr;
 	
+	@Transactional
 	@Override
 	public ResponseEntity<Company> addCompany(Company c) {
 		em.persist(c);
 		return ResponseEntity.ok().build();
 	}
 	
+	@Transactional
 	@Override
 	public ResponseEntity<Company> findOneCompany(Integer id) {
 		Company c = em.find(Company.class, id);

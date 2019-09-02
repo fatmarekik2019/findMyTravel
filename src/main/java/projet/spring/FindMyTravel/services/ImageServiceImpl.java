@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Image;
 import projet.spring.FindMyTravel.repositories.ImageRepository;
@@ -20,12 +21,14 @@ public class ImageServiceImpl implements ImageService{
 	@Autowired
 	ImageRepository ir;
 	
+	@Transactional
 	@Override
 	public ResponseEntity<Image> addImage(Image i) {
 		em.persist(i);
 		return ResponseEntity.ok().build();
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<Image> findOneImage(Integer id) {
 		Image i = em.find(Image.class, id);

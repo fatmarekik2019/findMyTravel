@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Cursus;
 import projet.spring.FindMyTravel.repositories.CursusRepository;
@@ -20,12 +21,14 @@ public class CursusServiceImpl implements CursusService{
 	@Autowired
 	CursusRepository cr;
 	
+	@Transactional
 	@Override
 	public ResponseEntity<Cursus> addCursus(Cursus c) {
 		em.persist(c);
 		return ResponseEntity.ok().build();
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<Cursus> findOneCursus(Integer id) {
 		Cursus c = em.find(Cursus.class, id);
