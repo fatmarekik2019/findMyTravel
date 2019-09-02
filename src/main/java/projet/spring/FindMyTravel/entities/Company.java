@@ -6,9 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 
@@ -22,15 +19,15 @@ public class Company extends User{
 	public Company() {
 		super();
 	}
-	//@OneToMany(mappedBy="company", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	//private List<Cursus> listCursus = new ArrayList<Cursus>();
+	@OneToMany(mappedBy="company", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private List<Cursus> listCursus = new ArrayList<Cursus>();
 	
-	/*public List<Cursus> getListCursus() {
+	public List<Cursus> getListCursus() {
 		return listCursus;
 	}
 	public void setListCursus(List<Cursus> listCursus) {
 		this.listCursus = listCursus;
-	}*/
+	}
 
 	public String getCompanyName() {
 		return companyName;

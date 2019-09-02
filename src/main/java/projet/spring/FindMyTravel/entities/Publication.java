@@ -34,17 +34,17 @@ public class Publication {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	//@ManyToOne
-	//@JsonIgnore
-	//private Client client;
+	@ManyToOne
+	@JsonIgnore
+	private Client client;
 	
 	@ManyToMany
 	@JsonIgnore
 	@JoinTable(name="publication_cursus", joinColumns = { @JoinColumn(name = "publication_id")}, inverseJoinColumns = { @JoinColumn(name = "cursus_id")})
 	private List<Cursus> ListCursus = new ArrayList<Cursus>();
 	
-	//@OneToMany(mappedBy="publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	//private List<Image> listImage = new ArrayList<Image>();
+	@OneToMany(mappedBy="publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private List<Image> listImage = new ArrayList<Image>();
 	
 	public List<Cursus> getListCursus() {
 		return ListCursus;
@@ -52,7 +52,7 @@ public class Publication {
 	public void setListCursus(List<Cursus> listCursus) {
 		ListCursus = listCursus;
 	}
-	/*public List<Image> getListImage() {
+	public List<Image> getListImage() {
 		return listImage;
 	}
 	public void setListImage(List<Image> listImage) {
@@ -64,7 +64,7 @@ public class Publication {
 	}
 	public void setClient(Client client) {
 		this.client = client;
-	}*/
+	}
 
 	public Integer getId() {
 		return id;

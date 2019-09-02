@@ -18,15 +18,16 @@ public class Image {
 	private Long latitude;
 	private Long longitude;
 	
-	//@ManyToOne
-	//@JsonIgnore
-	// private Publication publication;
-	/*public Publication getPublication() {
+	@ManyToOne
+	@JsonIgnore
+	private Publication publication;
+	
+	public Publication getPublication() {
 		return publication;
 	}
 	public void setPublication(Publication publication) {
 		this.publication = publication;
-	}*/
+	}
 	public Integer getId() {
 		return id;
 	}

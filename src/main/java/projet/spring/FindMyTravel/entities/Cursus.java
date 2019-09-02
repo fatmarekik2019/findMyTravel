@@ -30,19 +30,19 @@ public class Cursus {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	//@ManyToOne
-	//@JsonIgnore
-	//private Company company;
+	@ManyToOne
+	@JsonIgnore
+	private Company company;
 	
 	@ManyToMany(mappedBy="ListCursus")
 	private List<Publication> ListPublication = new ArrayList<Publication>();
 	
-	/*public Company getCompany() {
+	public Company getCompany() {
 		return company;
 	}
 	public void setCompany(Company company) {
 		this.company = company;
-	}*/
+	}
 	public List<Publication> getListPublication() {
 		return ListPublication;
 	}

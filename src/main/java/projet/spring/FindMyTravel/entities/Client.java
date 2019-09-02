@@ -7,13 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 @Entity
 public class Client extends User{
@@ -24,15 +18,15 @@ public class Client extends User{
 	public Client() {
 		super();
 	}
-	//@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	//private List<Publication> ListPublication = new ArrayList<Publication>();
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private List<Publication> ListPublication = new ArrayList<Publication>();
 	
-	/*public List<Publication> getListPublication() {
+	public List<Publication> getListPublication() {
 		return ListPublication;
 	}
 	public void setListPublication(List<Publication> listPublication) {
 		ListPublication = listPublication;
-	}*/
+	}
 	public String getFirstName() {
 		return firstName;
 	}
