@@ -30,7 +30,8 @@ public class Publication {
 	private String description;
 	private Long cost;
 	private Integer duration;
-	private Date createdDate;
+	private Date createdDate = new Date();
+	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
