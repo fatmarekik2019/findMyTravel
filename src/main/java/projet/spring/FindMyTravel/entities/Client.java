@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Client extends User{
 
-	private String firstName;
-	private String lastName;
+	private static String firstName;
+	private static String lastName;
 	private Date birthday;
 	public Client() {
 		super();

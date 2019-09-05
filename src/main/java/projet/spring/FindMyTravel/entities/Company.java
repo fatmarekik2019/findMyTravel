@@ -12,12 +12,12 @@ import javax.persistence.OneToMany;
 @Entity
 public class Company extends User{
 	private String companyName;
-	private String address;
-	private String city;
+	private static String address;
+	private static String city;
 	private Integer cP;
 	private Integer tel;
 	public Company() {
-		super();
+		super(city, address);
 	}
 	@OneToMany(mappedBy="company", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private List<Cursus> listCursus = new ArrayList<Cursus>();
