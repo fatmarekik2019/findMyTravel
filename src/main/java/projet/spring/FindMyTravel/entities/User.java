@@ -22,7 +22,9 @@ private Integer id;
 
 protected String userName;
 protected String password;
-protected String status;
+
+@Enumerated(EnumType.STRING)
+protected Status status;
 protected Date lastCnxDate;
 
 @Enumerated(EnumType.STRING)
@@ -33,10 +35,10 @@ public User() {
 	// TODO Auto-generated constructor stub
 }
 public User(String userName, String password) {
+	super();
 	this.userName = userName;
 	this.password = password;
-	BCryptManagerUtil.passwordEncoder().encode(password);
-	
+	//BCryptManagerUtil.passwordEncoder().encode(password);
 }
 
 public Integer getId() {
@@ -63,11 +65,11 @@ public void setPassword(String password) {
 	this.password = password;
 }
 
-public String getStatus() {
+public Status getStatus() {
 	return status;
 }
 
-public void setStatus(String status) {
+public void setStatus(Status status) {
 	this.status = status;
 }
 

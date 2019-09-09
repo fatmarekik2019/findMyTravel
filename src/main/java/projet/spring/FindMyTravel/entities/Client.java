@@ -8,16 +8,26 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Client extends User{
 
-	private static String firstName;
-	private static String lastName;
+	private String firstName;
+	private String lastName;
+	
+	@Temporal(TemporalType.DATE)
 	private Date birthday;
-	public Client() {
-		super();
+	
+	
+	public Client(String userName, String password, String firstName, String lastName) {
+	
+		super(userName, password);
+		this.firstName=firstName;
+		this.lastName=lastName;
 	}
+
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private List<Publication> ListPublication = new ArrayList<Publication>();
 	

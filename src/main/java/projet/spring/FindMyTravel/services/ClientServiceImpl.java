@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Client;
+import projet.spring.FindMyTravel.entities.Role;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.repositories.ClientRepository;
 
 @Service("clientService")
@@ -24,6 +26,8 @@ public class ClientServiceImpl implements ClientService{
 	@Transactional
 	@Override
 	public ResponseEntity<Client> addClient(Client c) {
+		c.setRole(Role.client);
+		c.setStatus(Status.activated);
 		em.persist(c);
 		return ResponseEntity.ok().build();
 	}
