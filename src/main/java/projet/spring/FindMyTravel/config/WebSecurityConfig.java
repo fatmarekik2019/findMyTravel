@@ -47,7 +47,11 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
 // We don't need CSRF for this example
 httpSecurity.csrf().disable()
 // dont authenticate this particular request
+<<<<<<< HEAD
 .authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany").permitAll().
+=======
+.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Client/verifUserName/*").permitAll().
+>>>>>>> 56fc54f91289eb9316999bd3ddce5d3feef896eb
 // all other requests need to be authenticated
 anyRequest().authenticated().and().
 // make sure we use stateless session; session won't be used to

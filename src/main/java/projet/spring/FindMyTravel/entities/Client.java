@@ -21,6 +21,9 @@ public class Client extends User{
 	private Date birthday;
 	
 	
+	public Client() {
+		super();
+	}
 	public Client(String userName, String password, String firstName, String lastName) {
 	
 		super(userName, password);

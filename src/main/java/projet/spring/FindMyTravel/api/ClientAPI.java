@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projet.spring.FindMyTravel.entities.Client;
+import projet.spring.FindMyTravel.entities.User;
 import projet.spring.FindMyTravel.services.ClientService;
 
 @RestController
@@ -24,8 +25,16 @@ public class ClientAPI {
 	ClientService clientService;
 	
 	@PostMapping(value="/addClient")
-	public ResponseEntity<Client> addClient(@RequestBody Client c){
-		return clientService.addClient(c);
+	public String addClient(@RequestBody Client c){
+		clientService.addClient(c);
+		return "client ajouté";
+	}
+	
+	
+	@GetMapping(value="verifUserName/{username}")
+	public Boolean verifUserName(@PathVariable("username") String username) {
+		return clientService.verifUserName(username);
+		
 	}
 
 	@GetMapping(value="/getAllClient")
