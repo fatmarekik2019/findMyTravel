@@ -31,10 +31,12 @@ public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
 // Use BCryptPasswordEncoder
 // auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 }
+
 @Bean
-public PasswordEncoder passwordEncoder() {
+public BCryptPasswordEncoder passwordEncoder() {
 return new BCryptPasswordEncoder();
 }
+
 @Bean
 @Override
 public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -45,7 +47,7 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
 // We don't need CSRF for this example
 httpSecurity.csrf().disable()
 // dont authenticate this particular request
-.authorizeRequests().antMatchers("/user/login","/Client/addClient").permitAll().
+.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany").permitAll().
 // all other requests need to be authenticated
 anyRequest().authenticated().and().
 // make sure we use stateless session; session won't be used to

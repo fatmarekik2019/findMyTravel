@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +17,20 @@ import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.services.CompanyService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value="/Company")
 public class CompanyAPI {
 
 	@Autowired
 	CompanyService companyService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@PostMapping(value="/addCompany")
 	public ResponseEntity<Company> addCompany(@RequestBody Company c){
+		String encodedPssword = bCryptPasswordEncoder.encode(c.getPassword());
+		c.setPassword(encodedPssword);
 		return companyService.addCompany(c);
 	}
 	

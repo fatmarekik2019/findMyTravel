@@ -6,11 +6,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Company;
+import projet.spring.FindMyTravel.entities.Role;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.repositories.CompanyRepository;
 
 @Service("companyService")
@@ -25,8 +28,10 @@ public class CompanyServiceImpl implements CompanyService{
 	@Transactional
 	@Override
 	public ResponseEntity<Company> addCompany(Company c) {
+		c.setRole(Role.company);
+		c.setStatus(Status.activated);
 		em.persist(c);
-		return ResponseEntity.ok().build();
+		return new ResponseEntity<Company>(c,HttpStatus.CREATED);
 	}
 	
 	@Transactional
