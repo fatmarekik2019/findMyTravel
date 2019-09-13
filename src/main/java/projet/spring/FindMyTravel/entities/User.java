@@ -1,5 +1,6 @@
 package projet.spring.FindMyTravel.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,7 +14,8 @@ import javax.persistence.Id;
 //import projet.spring.FindMytravel.config.BCryptManagerUtil;
 
 @Entity
-public class User{
+public class User implements Serializable {
+	private static final long serialVersionUID = 5926468583005150707L;
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Integer id;

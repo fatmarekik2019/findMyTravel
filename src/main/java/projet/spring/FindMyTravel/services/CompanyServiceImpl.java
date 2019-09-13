@@ -48,4 +48,10 @@ public class CompanyServiceImpl implements CompanyService{
 		List<Company> listCompany = new ArrayList<Company>(cr.findAll());
 		return listCompany;
 	}
+
+	@Override
+	public Company getCompanyById(Integer id) {
+		return cr.getOne(id);
+	}
+	
 }

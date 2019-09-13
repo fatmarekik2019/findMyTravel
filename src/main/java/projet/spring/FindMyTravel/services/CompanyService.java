@@ -13,5 +13,7 @@ public interface CompanyService {
 	ResponseEntity<Company> findOneCompany(Integer id);
 
 	List<Company> findAllCompany();
+	
+	Company getCompanyById(Integer id);
 
 }

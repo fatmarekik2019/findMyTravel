@@ -26,6 +26,9 @@ public class ClientAPI {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@PostMapping(value="/addClient")
 	public String addClient(@RequestBody Client c){
 		String encodedPssword = bCryptPasswordEncoder.encode(c.getPassword());

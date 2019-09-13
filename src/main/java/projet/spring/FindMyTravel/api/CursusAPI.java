@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.entities.Cursus;
+import projet.spring.FindMyTravel.services.CompanyService;
 import projet.spring.FindMyTravel.services.CursusService;
 
 @RestController
@@ -21,8 +23,13 @@ public class CursusAPI {
 	@Autowired
 	CursusService cursusService;
 	
-	@PostMapping(value="/addCursus")
-	public ResponseEntity<Cursus> addCursus(@RequestBody Cursus c){
+	@Autowired
+	CompanyService companyservice;
+	
+	@PostMapping(value="/addCursus/{companyid}")
+	public ResponseEntity<Cursus> addCursus(@RequestBody Cursus c, @PathVariable("companyid") Integer companyid){
+		Company company = companyservice.getCompanyById(companyid);
+		c.setCompany(company);
 		return cursusService.addCursus(c);
 	}
 	
@@ -34,6 +41,19 @@ public class CursusAPI {
 	@GetMapping(value="/getCursus/{id}")
 	public ResponseEntity<Cursus> getOneCursus(@PathVariable("id") Integer id){
 		return cursusService.findOneCursus(id);
+	}
+	
+	@RequestMapping(value = "/updateCursus/{companyid}/{cursusid}", method = RequestMethod.POST)
+	public Cursus UpdateDepartement(@RequestBody Cursus cursus, @PathVariable("cursusid") Integer cursusid, @PathVariable("companyid") Integer companyid) {
+		
+		Company company = companyservice.getCompanyById(companyid);
+		cursus.setCompany(company);
+		cursus.setId(cursusid);
+    	cursus.setId(cursusid);
+    	return cursusService.UpdateCursus(cursus);
+	
+		
+    	
 	}
 	
 }
