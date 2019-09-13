@@ -16,6 +16,8 @@ public class Client extends User{
 
 	private String firstName;
 	private String lastName;
+	private String image;
+	private String statut;
 	
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
@@ -24,11 +26,13 @@ public class Client extends User{
 	public Client() {
 		super();
 	}
-	public Client(String userName, String password, String firstName, String lastName) {
+	public Client(String userName, String password, String firstName, String lastName, String image, String statut) {
 	
 		super(userName, password);
 		this.firstName=firstName;
 		this.lastName=lastName;
+		this.image=image;
+		this.statut=statut;
 	}
 
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
@@ -58,5 +62,18 @@ public class Client extends User{
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getStatut() {
+		return statut;
+	}
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+	
 
 }

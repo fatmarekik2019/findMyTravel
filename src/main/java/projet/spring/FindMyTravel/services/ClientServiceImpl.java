@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,22 @@ public class ClientServiceImpl implements ClientService{
 		}
 		else {
 			return false;
+		}
+	}
+	
+	@Transactional
+	@Override
+	public ResponseEntity getByUserName(String username) {
+		
+		TypedQuery<User> query = (TypedQuery<User>) em.createQuery("SELECT u FROM User u WHERE u.userName = :username" ,User.class);
+		User u=query.setParameter("username", username).getSingleResult();
+		
+		if(u==null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
 		}
 	}
 	

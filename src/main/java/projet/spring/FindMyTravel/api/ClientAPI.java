@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projet.spring.FindMyTravel.entities.Client;
-import projet.spring.FindMyTravel.entities.User;
 import projet.spring.FindMyTravel.services.ClientService;
 
 @RestController
@@ -23,9 +23,13 @@ public class ClientAPI {
 	
 	@Autowired
 	ClientService clientService;
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping(value="/addClient")
 	public String addClient(@RequestBody Client c){
+		String encodedPssword = bCryptPasswordEncoder.encode(c.getPassword());
+		c.setPassword(encodedPssword);
 		clientService.addClient(c);
 		return "client ajouté";
 	}
@@ -45,6 +49,10 @@ public class ClientAPI {
 	@GetMapping(value="/getClient/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable("id") Integer id){
 		return clientService.findOneClient(id);
+	}
+	@GetMapping(value="/getProfile/{userName}")
+	public ResponseEntity getByUserName(@PathVariable("userName") String userName) {
+		return clientService.getByUserName(userName);
 	}
 	
 }
