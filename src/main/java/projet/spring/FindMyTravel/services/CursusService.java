@@ -14,4 +14,6 @@ public interface CursusService {
 	ResponseEntity<Cursus> findOneCursus(Integer id);
 
 	List<Cursus> findAllCursus();
+
+	Cursus UpdateCursus(Cursus cursus);
 }

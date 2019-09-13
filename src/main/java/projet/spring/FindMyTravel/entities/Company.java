@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Company extends User{
+	
+	private static final long serialVersionUID = 1L;
 	private String companyName;
 	private String address;
 	private String city;

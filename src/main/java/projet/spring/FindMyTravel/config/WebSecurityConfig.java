@@ -13,10 +13,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import projet.spring.FindMyTravel.services.*;
+import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig<T> extends WebSecurityConfigurerAdapter {
 	
 
 @Autowired
@@ -24,12 +26,14 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 @Autowired
 private JwtRequestFilter jwtRequestFilter;
+
+@SuppressWarnings("unchecked")
 @Autowired
 public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 // configure AuthenticationManager so that it knows from where to load
 // user for matching credentials
 // Use BCryptPasswordEncoder
-// auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+ auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 }
 
 @Bean
@@ -44,20 +48,18 @@ return super.authenticationManagerBean();
 }
 @Override
 protected void configure(HttpSecurity httpSecurity) throws Exception {
-// We don't need CSRF for this example
-httpSecurity.csrf().disable()
-// dont authenticate this particular request
-<<<<<<< HEAD
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany").permitAll().
-=======
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Client/verifUserName/*").permitAll().
->>>>>>> 56fc54f91289eb9316999bd3ddce5d3feef896eb
+	// We don't need CSRF for this example
+	httpSecurity.csrf().disable()
+	// dont authenticate this particular request
+.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*").permitAll().
+
 // all other requests need to be authenticated
 anyRequest().authenticated().and().
 // make sure we use stateless session; session won't be used to
 // store user's state.
 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	httpSecurity.cors();
 // Add a filter to validate the tokens with every request
 httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 }

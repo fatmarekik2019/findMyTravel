@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import projet.spring.FindMyTravel.entities.Cursus;
 import projet.spring.FindMyTravel.repositories.CursusRepository;
 
@@ -25,7 +24,7 @@ public class CursusServiceImpl implements CursusService{
 	@Override
 	public ResponseEntity<Cursus> addCursus(Cursus c) {
 		em.persist(c);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(c);
 	}
 
 	@Transactional
@@ -45,6 +44,13 @@ public class CursusServiceImpl implements CursusService{
 		return listCursus;
 		
 	}
+	@Transactional
+	@Override
+	public Cursus UpdateCursus(Cursus cursus) {
+		return em.merge(cursus);
+		
+	}
+	
 
 	
 }
