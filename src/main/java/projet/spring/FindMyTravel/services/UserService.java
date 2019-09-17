@@ -8,7 +8,8 @@ public interface UserService {
 	
 	public User loadByUsername(String username, String password);
 
-	User loadByUsernameToken(String username);
+	public User loadByUsernameToken(String username);
+	public User updatePassword(User user);
 	
 	
 }

@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.*;
 
@@ -43,5 +43,13 @@ PasswordEncoder passwordEncoder;
         return  u;	
 		 
 	}
+	
+	@Override
+	@Transactional
+	public User updatePassword(User user) {
+		return em.merge(user);
+	}
+	
+	
 
 }

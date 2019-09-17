@@ -47,21 +47,16 @@ return super.authenticationManagerBean();
 }
 @Override
 protected void configure(HttpSecurity httpSecurity) throws Exception {
-<<<<<<< HEAD
+
 // We don't need CSRF for this example
 httpSecurity.csrf().disable()
 // dont authenticate this particular request
 
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*").permitAll().
-=======
-	// We don't need CSRF for this example
-	httpSecurity.csrf().disable()
-	// dont authenticate this particular request
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*").permitAll().
->>>>>>> cc4a12913b25141a602069f22d49ef6799f60ed4
+.authorizeRequests().antMatchers("/Company/getCompany/*","/user/resetPassword/*","/user/login","/user/forgotPassword/*","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*").permitAll().
 
-// all other requests need to be authenticated
+//all other requests need to be authenticated
 anyRequest().authenticated().and().
+
 // make sure we use stateless session; session won't be used to
 // store user's state.
 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
