@@ -25,8 +25,6 @@ public class ClientAPI {
 	@Autowired
 	ClientService clientService;
 	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping(value="/addClient")
 	public String addClient(@RequestBody Client c){

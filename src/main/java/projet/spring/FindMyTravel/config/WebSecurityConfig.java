@@ -49,10 +49,15 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
 httpSecurity.csrf().disable()
 // dont authenticate this particular request
 
+<<<<<<< HEAD
 .authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*","/Client/update").permitAll().
+=======
+.authorizeRequests().antMatchers("/Company/getCompany/*","/user/resetPassword/*","/user/login","/user/forgotPassword/*","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*").permitAll().
+>>>>>>> a7fa7b3b7118b9a29a736e06a340ec997bdf2f3f
 
-// all other requests need to be authenticated
+//all other requests need to be authenticated
 anyRequest().authenticated().and().
+
 // make sure we use stateless session; session won't be used to
 // store user's state.
 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
