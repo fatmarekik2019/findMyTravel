@@ -13,4 +13,5 @@ public interface ClientService {
 	public ResponseEntity<Client> findOneClient(Integer id);
 	public List<Client> findAllClient();
 	public ResponseEntity getByUserName(String username);
+	public ResponseEntity update(Client c);
 }

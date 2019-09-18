@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +24,6 @@ public class ClientAPI {
 	
 	@Autowired
 	ClientService clientService;
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -56,6 +55,10 @@ public class ClientAPI {
 	@GetMapping(value="/getProfile/{userName}")
 	public ResponseEntity getByUserName(@PathVariable("userName") String userName) {
 		return clientService.getByUserName(userName);
+	}
+	@PutMapping(value="/update")
+	public ResponseEntity updateClient(@RequestBody Client c ) {
+		return clientService.update( c);
 	}
 	
 }

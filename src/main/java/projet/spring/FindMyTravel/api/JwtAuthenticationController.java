@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,33 +19,30 @@ import projet.spring.FindMyTravel.services.UserService;
 @RestController
 @RequestMapping("/user")
 public class JwtAuthenticationController {
-	
+
 	@Autowired
 	UserService userservice;
-	
+
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
-	
+
 	@Autowired
-    AuthenticationManager authenticationManager;
-	
+	AuthenticationManager authenticationManager;
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception 
-	{
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
 		final User userDetails = userservice.loadByUsername(user.getUsername(), user.getPassword());
 
-		if(userDetails == null) {
-			
+		if (userDetails == null) {
+
 			return ResponseEntity.ok("error password");
 		}
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JWTResponse(token));
 	}
+
+	@RequestMapping(value = "/checkPasswod/{userName}", method = RequestMethod.POST)
+	public Boolean checkPassword(@RequestBody User user, @PathVariable("userName") String userName) {
+		return userservice.userCheckPassword(userName, user.getPassword());
 	}
-	
-	
-	
-	
-
-
+	}

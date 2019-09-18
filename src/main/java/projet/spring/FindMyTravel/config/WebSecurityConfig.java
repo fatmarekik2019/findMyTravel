@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import projet.spring.FindMyTravel.services.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -26,7 +24,6 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 @Autowired
 private JwtRequestFilter jwtRequestFilter;
 
-@SuppressWarnings("unchecked")
 @Autowired
 public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 // configure AuthenticationManager so that it knows from where to load
@@ -47,18 +44,12 @@ return super.authenticationManagerBean();
 }
 @Override
 protected void configure(HttpSecurity httpSecurity) throws Exception {
-<<<<<<< HEAD
+
 // We don't need CSRF for this example
 httpSecurity.csrf().disable()
 // dont authenticate this particular request
 
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*").permitAll().
-=======
-	// We don't need CSRF for this example
-	httpSecurity.csrf().disable()
-	// dont authenticate this particular request
-.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*").permitAll().
->>>>>>> cc4a12913b25141a602069f22d49ef6799f60ed4
+.authorizeRequests().antMatchers("/user/login","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/Client/getProfile/*","/Client/update").permitAll().
 
 // all other requests need to be authenticated
 anyRequest().authenticated().and().

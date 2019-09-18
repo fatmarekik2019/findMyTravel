@@ -7,8 +7,7 @@ import projet.spring.FindMyTravel.entities.User;
 public interface UserService {
 	
 	public User loadByUsername(String username, String password);
-
-	User loadByUsernameToken(String username);
-	
+	public User loadByUsernameToken(String username);
+	public Boolean userCheckPassword(String username, String password);
 	
 }

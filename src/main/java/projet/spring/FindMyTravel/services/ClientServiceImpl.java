@@ -83,4 +83,15 @@ public class ClientServiceImpl implements ClientService{
 		List<Client> listClient = new ArrayList<Client>(cr.findAll());
 		return listClient;
 	}
+	@Transactional
+	@Override
+	public ResponseEntity update(Client c) {
+		Client client = em.find(Client.class, c.getId());
+		client.setFirstName(c.getFirstName());
+		client.setLastName(c.getLastName());
+		client.setBirthday(c.getBirthday());
+		client.setStatut(c.getStatut());
+		em.merge(client);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
+	}
 }

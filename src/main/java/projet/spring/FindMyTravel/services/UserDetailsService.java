@@ -34,6 +34,7 @@ PasswordEncoder passwordEncoder;
 			 return null;
 		 }
 	}
+	
 	@Override
 	public User loadByUsernameToken(String username) {
 		
@@ -42,6 +43,20 @@ PasswordEncoder passwordEncoder;
 		
         return  u;	
 		 
+	}
+	
+	@Override
+	public Boolean userCheckPassword(String username, String password) {
+		
+		TypedQuery<User> query = (TypedQuery<User>) em.createQuery("SELECT u FROM User u WHERE u.userName = :username" ,User.class);
+		User u=query.setParameter("username", username).getSingleResult();
+		
+         Boolean decodedPassword = passwordEncoder.matches(password, u.getPassword());
+		 if(decodedPassword) {
+				return  true;	
+		 } else {
+			 return false;
+		 }
 	}
 
 }
