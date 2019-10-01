@@ -94,4 +94,14 @@ public class ClientServiceImpl implements ClientService{
 		em.merge(client);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
 	}
+	
+	@Transactional
+	@Override
+	public ResponseEntity<?> updateImage(Client c) {
+		Client client = em.find(Client.class, c.getId());
+		client.setImage(c.getImage());
+		System.out.print("----ID-----"+c.getId()+"----"+c.getImage());
+		em.merge(client);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
+	}
 }

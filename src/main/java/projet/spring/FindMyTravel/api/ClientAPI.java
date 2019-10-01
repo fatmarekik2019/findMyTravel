@@ -25,10 +25,14 @@ public class ClientAPI {
 	@Autowired
 	ClientService clientService;
 	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	
 	@PostMapping(value="/addClient")
 	public String addClient(@RequestBody Client c){
 		String encodedPssword = bCryptPasswordEncoder.encode(c.getPassword());
+		c.setImage("avatar.png");
 		c.setPassword(encodedPssword);
 		clientService.addClient(c);
 		return "client ajouté";

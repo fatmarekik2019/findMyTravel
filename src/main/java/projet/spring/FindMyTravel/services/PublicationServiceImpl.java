@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Publication;
+import projet.spring.FindMyTravel.entities.User;
 import projet.spring.FindMyTravel.repositories.PublicationRepository;
 
 @Service("pubService")
@@ -26,7 +28,7 @@ public class PublicationServiceImpl implements PublicationService{
 	@Override
 	public ResponseEntity<Publication> addPublication(Publication p) {
 		em.persist(p);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(p);
 	}
 
 	@Transactional
@@ -37,6 +39,15 @@ public class PublicationServiceImpl implements PublicationService{
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(p);
+	}
+	
+	@Transactional
+	@Override
+	public List<Publication> findAllPublicationById(Integer id){
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p WHERE p.client.id = :id" ,Publication.class);
+		List<Publication> ListP = query.setParameter("id", id).getResultList();
+		
+		return ListP;
 	}
 
 	@Override

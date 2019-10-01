@@ -15,8 +15,7 @@ public class Image {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String link;
-	private Long latitude;
-	private Long longitude;
+
 	
 	@ManyToOne
 	@JsonIgnore
@@ -40,18 +39,7 @@ public class Image {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	public Long getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(Long latitude) {
-		this.latitude = latitude;
-	}
-	public Long getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(Long longitude) {
-		this.longitude = longitude;
-	}
+	
 	
 
 }

@@ -46,7 +46,6 @@ PasswordEncoder passwordEncoder;
 	}
 	
 	@Override
-<<<<<<< HEAD
 	public Boolean userCheckPassword(String username, String password) {
 		
 		TypedQuery<User> query = (TypedQuery<User>) em.createQuery("SELECT u FROM User u WHERE u.userName = :username" ,User.class);
@@ -59,13 +58,11 @@ PasswordEncoder passwordEncoder;
 			 return false;
 		 }
 	}
-=======
 	@Transactional
 	public User updatePassword(User user) {
 		return em.merge(user);
 	}
 	
 	
->>>>>>> a7fa7b3b7118b9a29a736e06a340ec997bdf2f3f
 
 }

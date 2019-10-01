@@ -31,6 +31,8 @@ public class Publication {
 	private Long cost;
 	private Integer duration;
 	private Date createdDate = new Date();
+	private Long latitude;
+	private Long longitude;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -108,6 +110,18 @@ public class Publication {
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	public Long getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Long latitude) {
+		this.latitude = latitude;
+	}
+	public Long getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Long longitude) {
+		this.longitude = longitude;
 	}
 	
 }

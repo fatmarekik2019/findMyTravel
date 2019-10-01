@@ -13,5 +13,7 @@ public interface PublicationService {
 	ResponseEntity<Publication> findOnePublication(Integer id);
 
 	List<Publication> findAllPublication();
+	
+	List<Publication> findAllPublicationById(Integer id);
 
 }

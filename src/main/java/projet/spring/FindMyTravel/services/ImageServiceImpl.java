@@ -25,7 +25,7 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	public ResponseEntity<Image> addImage(Image i) {
 		em.persist(i);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(i);	
 	}
 
 	@Transactional

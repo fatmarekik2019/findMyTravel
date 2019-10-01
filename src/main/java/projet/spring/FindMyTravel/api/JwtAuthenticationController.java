@@ -28,12 +28,8 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-<<<<<<< HEAD
 	AuthenticationManager authenticationManager;
 
-=======
-    AuthenticationManager authenticationManager;
-	
 	@Autowired 
 	EmailService emailService;
 	
@@ -41,7 +37,6 @@ public class JwtAuthenticationController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	
->>>>>>> a7fa7b3b7118b9a29a736e06a340ec997bdf2f3f
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
 		final User userDetails = userservice.loadByUsername(user.getUsername(), user.getPassword());
@@ -53,9 +48,7 @@ public class JwtAuthenticationController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JWTResponse(token));
 	}
-<<<<<<< HEAD
-=======
-	
+
 	@RequestMapping(value = "/forgotPassword/{email}", method = RequestMethod.POST)
 	public ResponseEntity forgotUserPassword(@RequestBody  User user, @PathVariable("email") String email) {
 		
@@ -104,16 +97,11 @@ public class JwtAuthenticationController {
 	}
 
 	
-	}
-	
-	
 	
 	
 	
 
->>>>>>> a7fa7b3b7118b9a29a736e06a340ec997bdf2f3f
-
-	@RequestMapping(value = "/checkPasswod/{userName}", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkPassword/{userName}", method = RequestMethod.POST)
 	public Boolean checkPassword(@RequestBody User user, @PathVariable("userName") String userName) {
 		return userservice.userCheckPassword(userName, user.getPassword());
 	}
