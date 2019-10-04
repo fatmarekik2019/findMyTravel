@@ -16,4 +16,8 @@ public interface PublicationService {
 	
 	List<Publication> findAllPublicationById(Integer id);
 
+	List<Publication> getActivatedPublication();
+
+	List<Publication> getRecentPublication();
+
 }

@@ -44,10 +44,10 @@ public class ClientServiceImpl implements ClientService{
 		
 		if(u.isEmpty() == true) {
 			
-			return true;
+			return false;
 		}
 		else {
-			return false;
+			return true;
 		}
 	}
 	

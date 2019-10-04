@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Publication;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.entities.User;
 import projet.spring.FindMyTravel.repositories.PublicationRepository;
 
@@ -54,6 +55,20 @@ public class PublicationServiceImpl implements PublicationService{
 	public List<Publication> findAllPublication() {
 		List<Publication> listPub = new ArrayList<Publication>(pr.findAll());
 		return listPub;
+	}
+	@Override
+	public List<Publication> getActivatedPublication(){
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p WHERE p.status = :activated" ,Publication.class);
+		List<Publication> ListP = query.setParameter("activated", Status.activated).getResultList();
+		
+		return ListP;
+	}
+	@Override
+	public List<Publication> getRecentPublication(){
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p  WHERE p.status = :activated ORDER BY id DESC");
+		List<Publication> ListP = query.setParameter("activated", Status.activated).setMaxResults(4).getResultList();
+		
+		return ListP;
 	}
 
 }
