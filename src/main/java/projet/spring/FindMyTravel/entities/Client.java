@@ -11,9 +11,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import projet.spring.FindMyTravel.entities.Vote;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client extends User{
 
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String image;
@@ -22,7 +29,19 @@ public class Client extends User{
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private List<Publication> ListPublication = new ArrayList<Publication>();
 	
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL )
+	@JsonIgnore
+	private List<Vote> voteList = new ArrayList<Vote>();
+	
+	public List<Vote> getVoteList() {
+		return voteList;
+	}
+	public void setVoteList(List<Vote> voteList) {
+		this.voteList = voteList;
+	}
 	public Client() {
 		super();
 	}
@@ -35,8 +54,7 @@ public class Client extends User{
 		this.statut=statut;
 	}
 
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	private List<Publication> ListPublication = new ArrayList<Publication>();
+	
 	
 	public List<Publication> getListPublication() {
 		return ListPublication;
