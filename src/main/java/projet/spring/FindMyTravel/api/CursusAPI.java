@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.entities.Cursus;
+import projet.spring.FindMyTravel.entities.Publication;
 import projet.spring.FindMyTravel.services.CompanyService;
 import projet.spring.FindMyTravel.services.CursusService;
 
@@ -54,6 +55,11 @@ public class CursusAPI {
 	
 		
     	
+	}
+	
+	@GetMapping(value="/getActivatedCursus")
+	public List<Cursus> getActivatedPublication(){
+		return cursusService.getActivatedCursus();
 	}
 	
 }

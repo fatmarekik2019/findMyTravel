@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projet.spring.FindMyTravel.entities.Cursus;
+import projet.spring.FindMyTravel.entities.Publication;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.repositories.CursusRepository;
 
 @Service("curService")
@@ -49,6 +52,13 @@ public class CursusServiceImpl implements CursusService{
 	public Cursus UpdateCursus(Cursus cursus) {
 		return em.merge(cursus);
 		
+	}
+	@Override
+	public List<Cursus> getActivatedCursus(){
+		TypedQuery<Cursus> query = (TypedQuery<Cursus>) em.createQuery("SELECT c FROM Cursus c WHERE c.status = :activated" ,Cursus.class);
+		List<Cursus> ListCursus = query.setParameter("activated", Status.activated).getResultList();
+		
+		return ListCursus;
 	}
 	
 

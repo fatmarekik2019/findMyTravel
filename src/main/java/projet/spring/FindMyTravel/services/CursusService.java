@@ -16,4 +16,6 @@ public interface CursusService {
 	List<Cursus> findAllCursus();
 
 	Cursus UpdateCursus(Cursus cursus);
+
+	List<Cursus> getActivatedCursus();
 }

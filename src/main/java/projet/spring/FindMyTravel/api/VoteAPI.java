@@ -34,5 +34,15 @@ public class VoteAPI {
 		return voteService.getVoteList(clientId);
 		
 	}
+	
+	@GetMapping(value="/countVote/{publicationId}")
+	public List<Vote> countVote(@PathVariable("publicationId") Integer publicationId) {
+		return voteService.countVote(publicationId);
+	}
+	
+	@GetMapping(value="/getPublicationMostVoted")
+	public List<Vote> getPublicationMostVoted(){
+		return voteService.getPublicationMostVoted();
+	}
 
 }

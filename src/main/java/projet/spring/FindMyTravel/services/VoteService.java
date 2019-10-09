@@ -13,5 +13,9 @@ public interface VoteService {
 
 	List<Vote> getVoteList(Integer clientId);
 
+	List<Vote> countVote(Integer publicationId);
+
+	List<Vote> getPublicationMostVoted();
+
 
 }

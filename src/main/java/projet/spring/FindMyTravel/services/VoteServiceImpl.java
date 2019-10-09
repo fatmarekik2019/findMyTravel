@@ -1,5 +1,6 @@
 package projet.spring.FindMyTravel.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -59,6 +60,31 @@ public class VoteServiceImpl implements VoteService{
 		TypedQuery<Vote> query = (TypedQuery<Vote>) em.createQuery("SELECT v.publication.id FROM Vote v WHERE v.client.id = :client_id");
 		List<Vote> Listvote = query.setParameter("client_id", clientId).getResultList();
 		return Listvote;
+		
+	}
+	@Override
+	public List<Vote> countVote(Integer publicationId) {
+		
+		TypedQuery<Vote> query = (TypedQuery<Vote>) em.createQuery("SELECT COUNT (v) FROM Vote v WHERE v.publication.id = :publication_id");
+		List<Vote> count = query.setParameter("publication_id", publicationId).getResultList();
+		return count;
+		
+	}
+	
+	@Override
+	public List<Vote> getPublicationMostVoted(){
+		@SuppressWarnings("deprecation")
+		int day = new Date().getDay()+5;
+		int month =  new Date().getMonth()-1;
+		int year = new Date().getYear();
+		Date date = new Date(year , month , day);
+		System.out.print(date);
+
+		TypedQuery<Vote> query = (TypedQuery<Vote>) em.createQuery("SELECT v, COUNT (v) AS count FROM Vote v INNER JOIN Publication p ON p.id = v.publication.id "
+				+ "WHERE p.createdDate > :date GROUP BY v.publication.id ORDER BY COUNT (v) DESC") ;
+		
+		List<Vote> ListPublication = query.setParameter("date", date).setMaxResults(3).getResultList();
+		return ListPublication;
 		
 	}
 }
