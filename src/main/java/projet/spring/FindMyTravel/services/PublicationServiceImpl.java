@@ -58,7 +58,6 @@ public class PublicationServiceImpl implements PublicationService{
 		List<Publication> listPub = new ArrayList<Publication>(pr.findAll());
 		return listPub;
 	}
-	
 	@Transactional
 	@Override
 	public ResponseEntity<Publication> editPublication(Publication p, Integer id){
@@ -127,6 +126,21 @@ public class PublicationServiceImpl implements PublicationService{
 		em.merge(p);
 	}
 	
+	@Transactional
+	@Override
+	public List<Publication> getActivatedPublication(){
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p WHERE p.status = :activated" ,Publication.class);
+		List<Publication> ListP = query.setParameter("activated", Status.activated).getResultList();
+		
+		return ListP;
+	}
 	
-
+	@Transactional
+	@Override
+	public List<Publication> getRecentPublication(){
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p  WHERE p.status = :activated ORDER BY id DESC");
+		List<Publication> ListP = query.setParameter("activated", Status.activated).setMaxResults(4).getResultList();
+		
+		return ListP;
+	}
 }

@@ -53,12 +53,21 @@ public class CursusServiceImpl implements CursusService{
 		
 	}
 
+
 	@Transactional
 	@Override
 	public List<Cursus> findAllCursusByIdUser(Integer id) {
 		TypedQuery<Cursus> query = (TypedQuery<Cursus>) em.createQuery("SELECT c FROM Cursus c WHERE c.status not like 'deleted' and c.company.id = :id  order by c.id desc" ,Cursus.class);
 		List<Cursus> listCursus = query.setParameter("id", id).getResultList();
 		return listCursus;
+	}
+
+	@Override
+	public List<Cursus> getActivatedCursus(){
+		TypedQuery<Cursus> query = (TypedQuery<Cursus>) em.createQuery("SELECT c FROM Cursus c WHERE c.status = :activated" ,Cursus.class);
+		List<Cursus> ListCursus = query.setParameter("activated", Status.activated).getResultList();
+		
+		return ListCursus;
 	}
 	
 	@Transactional

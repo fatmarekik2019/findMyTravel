@@ -70,4 +70,14 @@ public class PublicationAPI {
 		return publicationService.getAllActivePublication();
 	}
 	
+	@GetMapping(value="/getActivatedPublication")
+	public List<Publication> getActivatedPublication(){
+		return publicationService.getActivatedPublication();
+	}
+	
+	@GetMapping(value="/getRecentPublication")
+	public List<Publication> getRecentPublication(){
+		return publicationService.getRecentPublication();
+	}
+	
 }

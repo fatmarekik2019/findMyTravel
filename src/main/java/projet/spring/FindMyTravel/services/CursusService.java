@@ -10,16 +10,16 @@ public interface CursusService {
 
 
 	ResponseEntity<Cursus> addCursus(Cursus c);
-
+	
 	ResponseEntity<Cursus> findOneCursus(Integer id);
-
+	
 	List<Cursus> findAllCursus();
-
+	
 	Cursus UpdateCursus(Cursus cursus);
 	
 	List<Cursus> findAllCursusByIdUser(Integer id);
-
+	
 	boolean deleteCursus(Integer id);
 	
-	
+	List<Cursus> getActivatedCursus();
 }

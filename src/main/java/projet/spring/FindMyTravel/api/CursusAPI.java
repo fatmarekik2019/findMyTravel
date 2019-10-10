@@ -77,4 +77,9 @@ public class CursusAPI {
 		return cursusService.deleteCursus(id);
 	}
 	
+	@GetMapping(value="/getActivatedCursus")
+	public List<Cursus> getActivatedPublication(){
+		return cursusService.getActivatedCursus();
+	}
+	
 }

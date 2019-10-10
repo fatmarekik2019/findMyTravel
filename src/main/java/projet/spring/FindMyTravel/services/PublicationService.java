@@ -29,4 +29,8 @@ public interface PublicationService {
 	
 	void addCursusToPublication(Integer id, Cursus c);
 
+	List<Publication> getActivatedPublication();
+
+	List<Publication> getRecentPublication();
+
 }

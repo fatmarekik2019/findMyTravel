@@ -17,10 +17,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import projet.spring.FindMyTravel.entities.Vote;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Publication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +50,18 @@ public class Publication {
 	
 	@OneToMany(mappedBy="publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<Image> listImage = new ArrayList<Image>();
+
+	
+	@OneToMany(mappedBy = "publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL )
 	@JsonIgnore
+	private List<Vote> voteList = new ArrayList<Vote>();
+	
+	public List<Vote> getVoteList() {
+		return voteList;
+	}
+	public void setVoteList(List<Vote> voteList) {
+		this.voteList = voteList;
+	}
 	public List<Cursus> getListCursus() {
 		return ListCursus;
 	}
