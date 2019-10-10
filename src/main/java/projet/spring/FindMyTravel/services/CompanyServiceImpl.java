@@ -28,6 +28,7 @@ public class CompanyServiceImpl implements CompanyService{
 	@Transactional
 	@Override
 	public ResponseEntity<Company> addCompany(Company c) {
+		c.setImage("home.png");
 		c.setRole(Role.company);
 		c.setStatus(Status.activated);
 		em.persist(c);
@@ -52,6 +53,28 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public Company getCompanyById(Integer id) {
 		return cr.getOne(id);
+	}
+	
+	@Transactional 
+	@Override
+	public ResponseEntity<Company> updateImage(Integer id, String fileName){
+		Company c=em.find(Company.class, id);
+		c.setImage(fileName);
+		em.merge(c);
+		return ResponseEntity.ok().body(c);
+	}
+	@Transactional 
+	@Override
+	public ResponseEntity<Company> updateCompany(Company c){
+		Company cUpdated=em.find(Company.class, c.getId());
+		cUpdated.setCompanyName(c.getCompanyName());
+		cUpdated.setSlogan(c.getSlogan());
+		cUpdated.setAddress(c.getAddress());
+		cUpdated.setcP(c.getcP());
+		cUpdated.setCity(c.getCity());
+		cUpdated.setTel(c.getTel());
+		em.merge(cUpdated);
+		return ResponseEntity.ok().body(cUpdated);
 	}
 	
 }

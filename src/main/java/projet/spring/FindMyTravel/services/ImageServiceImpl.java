@@ -44,5 +44,14 @@ public class ImageServiceImpl implements ImageService{
 		return listImage;
 	}
 	
+	@Transactional
+	@Override
+	public void deleteImage(Integer id) {
+		Image i = em.find(Image.class, id);
+		
+		em.remove(i);
+		em.flush();
+		em.clear();
+	}
 
 }

@@ -43,4 +43,8 @@ public class CompanyAPI {
 	public ResponseEntity<Company> getOneCompany(@PathVariable("id") Integer id) {
 		return companyService.findOneCompany(id);
 	}
+	@PostMapping(value="/update")
+	public ResponseEntity<Company> updateCompany(@RequestBody Company c){
+		return companyService.updateCompany(c);
+	}
 }

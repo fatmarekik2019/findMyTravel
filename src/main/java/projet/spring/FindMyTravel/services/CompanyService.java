@@ -15,5 +15,9 @@ public interface CompanyService {
 	List<Company> findAllCompany();
 	
 	Company getCompanyById(Integer id);
+	
+	ResponseEntity<Company> updateImage(Integer id, String fileName);
+	
+	ResponseEntity<Company> updateCompany(Company c);
 
 }

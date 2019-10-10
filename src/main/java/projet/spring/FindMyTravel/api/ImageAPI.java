@@ -40,4 +40,8 @@ public class ImageAPI {
 	public ResponseEntity<Image> getOneImage(@PathVariable("id") Integer id){
 		return imageService.findOneImage(id);
 	}
+	@PostMapping(value="/deleteImage/{id}")
+	public void deleteImage(@PathVariable("id") Integer id) {
+		imageService.deleteImage(id);
+	}
 }

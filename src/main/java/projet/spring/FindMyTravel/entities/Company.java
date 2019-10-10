@@ -14,10 +14,12 @@ public class Company extends User{
 	
 	private static final long serialVersionUID = 1L;
 	private String companyName;
+	private String slogan;
 	private String address;
 	private String city;
 	private Integer cP;
 	private Integer tel;
+	private String image;
 	
 	@OneToMany(mappedBy="company", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private List<Cursus> listCursus = new ArrayList<Cursus>();
@@ -30,13 +32,15 @@ public class Company extends User{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Company(String userName, String password, String companyName, String address, String city, Integer cP, Integer tel) {
+	public Company(String userName, String password, String companyName, String address, String city, Integer cP, Integer tel, String slogan, String image) {
 		super(userName, password);
 		this.companyName=companyName;
 		this.address=address;
 		this.city=city;
 		this.cP=cP;
 		this.tel=tel;
+		this.slogan=slogan;
+		this.image=image;
 		
 	}
 	public void setListCursus(List<Cursus> listCursus) {
@@ -73,6 +77,23 @@ public class Company extends User{
 	public void setTel(Integer tel) {
 		this.tel = tel;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getSlogan() {
+		return slogan;
+	}
+
+	public void setSlogan(String slogan) {
+		this.slogan = slogan;
+	}
+	
 	
 	
 }

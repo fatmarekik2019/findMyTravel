@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projet.spring.FindMyTravel.entities.Cursus;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.repositories.CursusRepository;
 
-@Service("curService")
+@Service("cursusService")
 public class CursusServiceImpl implements CursusService{
 
 	@Autowired
@@ -50,7 +52,26 @@ public class CursusServiceImpl implements CursusService{
 		return em.merge(cursus);
 		
 	}
+
+	@Transactional
+	@Override
+	public List<Cursus> findAllCursusByIdUser(Integer id) {
+		TypedQuery<Cursus> query = (TypedQuery<Cursus>) em.createQuery("SELECT c FROM Cursus c WHERE c.status not like 'deleted' and c.company.id = :id  order by c.id desc" ,Cursus.class);
+		List<Cursus> listCursus = query.setParameter("id", id).getResultList();
+		return listCursus;
+	}
 	
+	@Transactional
+	@Override
+	public boolean deleteCursus(Integer id) {
+		Cursus c = em.find(Cursus.class, id);
+		c.setStatus(Status.deleted);
+		em.merge(c);
+		if (c.getStatus().equals(Status.deleted)){
+			return true;
+		}
+		return false;
+	}
 
 	
 }

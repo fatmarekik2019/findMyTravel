@@ -42,13 +42,13 @@ public class Publication {
 	private Client client;
 	
 	@ManyToMany
-	@JsonIgnore
+	
 	@JoinTable(name="publication_cursus", joinColumns = { @JoinColumn(name = "publication_id")}, inverseJoinColumns = { @JoinColumn(name = "cursus_id")})
 	private List<Cursus> ListCursus = new ArrayList<Cursus>();
 	
-	@OneToMany(mappedBy="publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<Image> listImage = new ArrayList<Image>();
-	
+	@JsonIgnore
 	public List<Cursus> getListCursus() {
 		return ListCursus;
 	}
@@ -123,5 +123,13 @@ public class Publication {
 	public void setLongitude(Long longitude) {
 		this.longitude = longitude;
 	}
+	@Override
+	public String toString() {
+		return "Publication [id=" + id + ", address=" + address + ", description=" + description + ", cost=" + cost
+				+ ", duration=" + duration + ", createdDate=" + createdDate + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", status=" + status + ", client=" + client
+				+ ", listImage=" + listImage + "]";
+	}
+	
 	
 }

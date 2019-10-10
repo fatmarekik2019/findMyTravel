@@ -45,5 +45,29 @@ public class PublicationAPI {
 	public List<Publication> getAllPubById(@PathVariable("id") Integer id){
 		return publicationService.findAllPublicationById(id);
 	}
+	@PostMapping(value="/editPublication/{id}")
+	public ResponseEntity<Publication> editPub(@RequestBody Publication p, @PathVariable("id") Integer id){
+	
+		return publicationService.editPublication(p,id);
+	}
+	@GetMapping(value="/clearImages/{id}")
+	public ResponseEntity<Publication> clearImages(@PathVariable("id") Integer id) {
+		return publicationService.removeImages(id);
+	}
+	@PostMapping(value="/changeStatus")
+	public ResponseEntity<Publication> changeStatusPub(@RequestBody Publication p){
+	
+		return publicationService.changeStatusPublication(p);
+	}
+	
+	@PostMapping(value="/deletePublication")
+	public boolean deletePub(@RequestBody Publication p){
+	
+		return publicationService.deletePublication(p);
+	}
+	@GetMapping(value="/getAll")
+	public List<Publication> getAllPubActive(){
+		return publicationService.getAllActivePublication();
+	}
 	
 }

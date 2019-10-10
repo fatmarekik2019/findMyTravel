@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.entities.Cursus;
+import projet.spring.FindMyTravel.entities.Publication;
+import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.services.CompanyService;
 import projet.spring.FindMyTravel.services.CursusService;
+import projet.spring.FindMyTravel.services.PublicationService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/Cursus")
 public class CursusAPI {
@@ -24,18 +29,32 @@ public class CursusAPI {
 	CursusService cursusService;
 	
 	@Autowired
+	PublicationService publicationService;
+	
+	@Autowired
 	CompanyService companyservice;
 	
 	@PostMapping(value="/addCursus/{companyid}")
 	public ResponseEntity<Cursus> addCursus(@RequestBody Cursus c, @PathVariable("companyid") Integer companyid){
 		Company company = companyservice.getCompanyById(companyid);
 		c.setCompany(company);
-		return cursusService.addCursus(c);
+		c.setStatus(Status.draft);
+		ResponseEntity<Cursus> C1 = cursusService.addCursus(c);
+		List<Publication> listPublication = c.getListPublication();
+		for(int i=0;i<listPublication.size();i++) {
+			publicationService.addCursusToPublication(listPublication.get(i).getId(), c);
+		}
+		return C1;
+		
 	}
 	
 	@GetMapping(value="/getAllCursus")
 	public List<Cursus> getAllCursus(){
 		return cursusService.findAllCursus();
+	}
+	@GetMapping(value="/getAllCursus/{id}")
+	public List<Cursus> getAllCursusByIdUser(@PathVariable("id") Integer id){
+		return cursusService.findAllCursusByIdUser(id);
 	}
 	
 	@GetMapping(value="/getCursus/{id}")
@@ -52,8 +71,10 @@ public class CursusAPI {
     	cursus.setId(cursusid);
     	return cursusService.UpdateCursus(cursus);
 	
-		
-    	
+	}
+	@GetMapping(value="/delete/{id}")
+	public boolean deleteCursus(@PathVariable("id") Integer id){
+		return cursusService.deleteCursus(id);
 	}
 	
 }

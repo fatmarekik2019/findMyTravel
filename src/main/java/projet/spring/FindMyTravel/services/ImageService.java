@@ -12,4 +12,6 @@ public interface ImageService {
 	ResponseEntity<Image> findOneImage(Integer id);
 
 	List<Image> findAllImage();
+	
+	void deleteImage(Integer id);
 }

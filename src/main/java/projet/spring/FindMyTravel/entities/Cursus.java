@@ -37,6 +37,25 @@ public class Cursus {
 	@ManyToMany(mappedBy="ListCursus")
 	private List<Publication> ListPublication = new ArrayList<Publication>();
 	
+	
+	
+	public Cursus(Integer id, String title, String description, Long price, Date departDate, Date returnDate,
+			Status status, Company company, List<Publication> listPublication) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.departDate = departDate;
+		this.returnDate = returnDate;
+		this.status = status;
+		this.company = company;
+		ListPublication = listPublication;
+	}
+	public Cursus() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Company getCompany() {
 		return company;
 	}
