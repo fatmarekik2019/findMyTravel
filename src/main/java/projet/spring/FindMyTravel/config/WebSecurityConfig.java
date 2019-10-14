@@ -50,7 +50,7 @@ httpSecurity.csrf().disable()
 // dont authenticate this particular request
 
 
-.authorizeRequests().antMatchers("/user/checkPassword/*","/user/resetPassword/*","/user/login","/user/forgotPassword/*","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/downloadFile/*").permitAll().
+.authorizeRequests().antMatchers("/Cursus/getActivatedCursus","/Vote/countVote/*","/Vote/getPublicationMostVoted","/Publication/getRecentPublication","/Publication/getActivatedPublication","/user/checkPassword/*","/user/resetPassword/*","/user/login","/user/forgotPassword/*","/Client/addClient","/Company/addCompany","/Client/verifUserName/*","/downloadFile/*").permitAll().
 
 
 //all other requests need to be authenticated

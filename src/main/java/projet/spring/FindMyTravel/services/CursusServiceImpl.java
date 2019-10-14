@@ -63,11 +63,11 @@ public class CursusServiceImpl implements CursusService{
 	}
 
 	@Override
-	public List<Cursus> getActivatedCursus(){
+	public ResponseEntity<List<Cursus>> getActivatedCursus(){
 		TypedQuery<Cursus> query = (TypedQuery<Cursus>) em.createQuery("SELECT c FROM Cursus c WHERE c.status = :activated" ,Cursus.class);
 		List<Cursus> ListCursus = query.setParameter("activated", Status.activated).getResultList();
 		
-		return ListCursus;
+		return ResponseEntity.ok().body(ListCursus);
 	}
 	
 	@Transactional

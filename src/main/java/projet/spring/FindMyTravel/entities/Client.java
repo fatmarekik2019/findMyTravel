@@ -55,7 +55,7 @@ public class Client extends User{
 	}
 
 	
-	
+	@JsonIgnore
 	public List<Publication> getListPublication() {
 		return ListPublication;
 	}

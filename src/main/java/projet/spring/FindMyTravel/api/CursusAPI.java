@@ -78,7 +78,7 @@ public class CursusAPI {
 	}
 	
 	@GetMapping(value="/getActivatedCursus")
-	public List<Cursus> getActivatedPublication(){
+	public ResponseEntity<?> getActivatedPublication(){
 		return cursusService.getActivatedCursus();
 	}
 	
