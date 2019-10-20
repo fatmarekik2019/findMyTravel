@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Cursus {
@@ -31,7 +32,6 @@ public class Cursus {
 	private Status status;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Company company;
 	
 	@ManyToMany(mappedBy="ListCursus")
@@ -62,6 +62,8 @@ public class Cursus {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	
+	@JsonIgnore
 	public List<Publication> getListPublication() {
 		return ListPublication;
 	}

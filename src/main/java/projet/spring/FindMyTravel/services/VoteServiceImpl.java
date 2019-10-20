@@ -30,6 +30,10 @@ public class VoteServiceImpl implements VoteService{
 	ClientRepository clientRepository;
 	@Autowired
 	PublicationRepository publicationRepository;
+
+	private Date firstDate;
+
+	private Date lastDate;
 	
 	@Transactional
 	@Override
@@ -73,17 +77,29 @@ public class VoteServiceImpl implements VoteService{
 	
 	@Override
 	public List<Vote> getPublicationMostVoted(){
+		
 		@SuppressWarnings("deprecation")
-		int day = new Date().getDay()+5;
 		int month =  new Date().getMonth()-1;
-		int year = new Date().getYear();
-		Date date = new Date(year , month , day);
-		System.out.print(date);
+		if(new Date().getMonth() == 0) {
+			int year = new Date().getYear()-1;
+			this.firstDate = new Date(year, 12, 1);
+			this.lastDate = new Date(year, 12, 31);
+		}
+		else {
+			int year = new Date().getYear();
+			this.firstDate = new Date(year, month, 1);
+			this.lastDate = new Date(year, month, 31);
+			System.out.println(month);
+			System.out.println(lastDate);
+			System.out.println(firstDate);
+		}
+
 
 		TypedQuery<Vote> query = (TypedQuery<Vote>) em.createQuery("SELECT v, COUNT (v) AS count FROM Vote v INNER JOIN Publication p ON p.id = v.publication.id "
-				+ "WHERE p.createdDate > :date GROUP BY v.publication.id ORDER BY COUNT (v) DESC") ;
+				+ "WHERE p.createdDate >= :firstDate AND p.createdDate <= : lastDate "
+				+ "GROUP BY v.publication.id ORDER BY COUNT (v) DESC") ;
 		
-		List<Vote> ListPublication = query.setParameter("date", date).setMaxResults(3).getResultList();
+		List<Vote> ListPublication = query.setParameter("firstDate", firstDate).setParameter("lastDate", lastDate).setMaxResults(3).getResultList();
 		return ListPublication;
 		
 	}

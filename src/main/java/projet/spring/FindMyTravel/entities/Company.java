@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Company extends User{
@@ -24,6 +26,7 @@ public class Company extends User{
 	@OneToMany(mappedBy="company", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private List<Cursus> listCursus = new ArrayList<Cursus>();
 	
+	@JsonIgnore
 	public List<Cursus> getListCursus() {
 		return listCursus;
 	}

@@ -40,7 +40,6 @@ public class Publication {
 	private Status status;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Client client;
 	
 	@ManyToMany
@@ -74,6 +73,7 @@ public class Publication {
 	public void setListImage(List<Image> listImage) {
 		this.listImage = listImage;
 	}
+	
 	
 	public Client getClient() {
 		return client;

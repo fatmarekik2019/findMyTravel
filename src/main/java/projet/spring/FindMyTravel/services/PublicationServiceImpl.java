@@ -159,7 +159,7 @@ public class PublicationServiceImpl implements PublicationService{
 	@Transactional
 	@Override
 	public List<Publication> getActivatedPublication(){
-		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p WHERE p.status = :activated" ,Publication.class);
+		TypedQuery<Publication> query = (TypedQuery<Publication>) em.createQuery("SELECT p FROM Publication p WHERE p.status = :activated order by p.id desc" ,Publication.class);
 		List<Publication> ListP = query.setParameter("activated", Status.activated).getResultList();
 		
 		return ListP;
