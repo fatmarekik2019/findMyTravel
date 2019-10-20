@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import projet.spring.FindMyTravel.entities.Client;
 import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.entities.Role;
 import projet.spring.FindMyTravel.entities.Status;
@@ -75,6 +76,18 @@ public class CompanyServiceImpl implements CompanyService{
 		cUpdated.setTel(c.getTel());
 		em.merge(cUpdated);
 		return ResponseEntity.ok().body(cUpdated);
+	}
+
+	@Transactional
+	@Override
+	public boolean deleteCompany(Integer id) {
+		Company c = em.find(Company.class, id);
+		c.setStatus(Status.deleted);
+		em.merge(c);
+		if (c.getStatus().equals(Status.deleted)){
+			return true;
+		}
+		return false;
 	}
 	
 }

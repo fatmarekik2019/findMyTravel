@@ -15,5 +15,6 @@ public interface ClientService {
 	public ResponseEntity getByUserName(String username);
 	public ResponseEntity update(Client c);
 	public ResponseEntity<?> updateImage(Client c);
+	boolean deleteClient(Integer id);
 	
 }

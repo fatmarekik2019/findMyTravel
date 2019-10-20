@@ -47,4 +47,8 @@ public class CompanyAPI {
 	public ResponseEntity<Company> updateCompany(@RequestBody Company c){
 		return companyService.updateCompany(c);
 	}
+	@GetMapping(value="/delete/{id}")
+	public boolean deleteCompany(@PathVariable("id") Integer id){
+		return companyService.deleteCompany(id);
+	}
 }

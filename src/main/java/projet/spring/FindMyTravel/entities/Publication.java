@@ -44,7 +44,6 @@ public class Publication {
 	private Client client;
 	
 	@ManyToMany
-	
 	@JoinTable(name="publication_cursus", joinColumns = { @JoinColumn(name = "publication_id")}, inverseJoinColumns = { @JoinColumn(name = "cursus_id")})
 	private List<Cursus> ListCursus = new ArrayList<Cursus>();
 	
@@ -53,15 +52,16 @@ public class Publication {
 
 	
 	@OneToMany(mappedBy = "publication", fetch = FetchType.LAZY , cascade = CascadeType.ALL )
-	@JsonIgnore
 	private List<Vote> voteList = new ArrayList<Vote>();
 	
+	@JsonIgnore
 	public List<Vote> getVoteList() {
 		return voteList;
 	}
 	public void setVoteList(List<Vote> voteList) {
 		this.voteList = voteList;
 	}
+	@JsonIgnore
 	public List<Cursus> getListCursus() {
 		return ListCursus;
 	}

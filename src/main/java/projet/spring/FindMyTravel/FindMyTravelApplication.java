@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import projet.spring.FindMyTravel.filedemo.property.FileStorageProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties({
         FileStorageProperties.class
 })

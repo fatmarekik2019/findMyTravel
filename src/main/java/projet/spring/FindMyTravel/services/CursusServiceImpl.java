@@ -1,13 +1,19 @@
 package projet.spring.FindMyTravel.services;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projet.spring.FindMyTravel.entities.Cursus;
@@ -42,7 +48,7 @@ public class CursusServiceImpl implements CursusService{
 	@Override
 	public List<Cursus> findAllCursus() {
 		
-		List<Cursus> listCursus = new ArrayList<Cursus>(cr.findAll());
+		List<Cursus> listCursus = new ArrayList<Cursus>(cr.findAll(Sort.by(Sort.Direction.DESC, "id")));
 		return listCursus;
 		
 	}
@@ -81,6 +87,31 @@ public class CursusServiceImpl implements CursusService{
 		}
 		return false;
 	}
+	
+	@Transactional
+	@Override
+	public ResponseEntity<Cursus> updateCursus(Cursus c){
+		em.merge(c);
+		return ResponseEntity.ok().body(c);
+	}
+	
+	//every midnight update disable Cursus with departure date > date now
+	@Transactional
+	@Scheduled(cron="0 0 12 * * ?")
+	public void updateStatusCursus() {
+		List<Cursus> listC = cr.findAll();
+		Date date = new Date();
+		for(int i=0;i<listC.size();i++) {
+			if(listC.get(i).getDepartDate().compareTo(date)<0) {
+				Cursus c = listC.get(i);
+				c.setStatus(Status.deleted);
+				em.merge(c);
+				System.out.print("yes update"+ c.getId());
+			}
+		}
+		
+	}
+	
 
 	
 }

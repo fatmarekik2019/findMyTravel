@@ -22,4 +22,6 @@ public interface CursusService {
 	boolean deleteCursus(Integer id);
 	
 	List<Cursus> getActivatedCursus();
+	
+	ResponseEntity<Cursus> updateCursus(Cursus c);
 }
