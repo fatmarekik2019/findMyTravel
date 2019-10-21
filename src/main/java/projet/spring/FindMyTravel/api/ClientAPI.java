@@ -62,5 +62,9 @@ public class ClientAPI {
 	public ResponseEntity updateClient(@RequestBody Client c ) {
 		return clientService.update( c);
 	}
+	@GetMapping(value="/delete/{id}")
+	public boolean deleteClient(@PathVariable("id") Integer id){
+		return clientService.deleteClient(id);
+	}
 	
 }

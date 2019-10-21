@@ -126,6 +126,36 @@ public class PublicationServiceImpl implements PublicationService{
 		p.setListCursus(listC);
 		em.merge(p);
 	}
+	@Transactional
+	@Override
+	public void updatePublication(Integer id, Cursus c){
+		Publication p=em.find(Publication.class, id);
+		List<Cursus> listC = p.getListCursus();
+		boolean find=false;
+		for(int i=0;i<listC.size();i++) {
+			if(listC.get(i).equals(c)) {
+				find=true;
+			}
+		}
+		if(!find) {
+			listC.add(c);
+		}
+		p.setListCursus(listC);
+		em.merge(p);
+	}
+	@Transactional
+	@Override
+	public void deletePublicationCursus(Integer id, Cursus c){
+		Publication p=em.find(Publication.class, id);
+		List<Cursus> listC = p.getListCursus();
+		for(int i=0;i<listC.size();i++) {
+			if(listC.get(i).equals(c)) {
+				listC.remove(c);
+			}
+		}
+		p.setListCursus(listC);
+		em.merge(p);
+	}
 	
 	@Transactional
 	@Override

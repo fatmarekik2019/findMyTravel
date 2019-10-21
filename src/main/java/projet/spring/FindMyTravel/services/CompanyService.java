@@ -20,4 +20,6 @@ public interface CompanyService {
 	
 	ResponseEntity<Company> updateCompany(Company c);
 
+	boolean deleteCompany(Integer id);
+
 }

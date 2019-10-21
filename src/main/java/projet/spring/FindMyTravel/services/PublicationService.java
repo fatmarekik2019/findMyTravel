@@ -27,6 +27,10 @@ public interface PublicationService {
 	
 	List<Publication> getAllActivePublication();
 	
+	void updatePublication(Integer id, Cursus c);
+	
+	void deletePublicationCursus(Integer id, Cursus c);
+	
 	void addCursusToPublication(Integer id, Cursus c);
 
 	List<Publication> getActivatedPublication();

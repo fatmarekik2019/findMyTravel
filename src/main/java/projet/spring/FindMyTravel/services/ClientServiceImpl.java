@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Client;
+import projet.spring.FindMyTravel.entities.Cursus;
 import projet.spring.FindMyTravel.entities.Role;
 import projet.spring.FindMyTravel.entities.Status;
 import projet.spring.FindMyTravel.entities.User;
@@ -103,5 +104,17 @@ public class ClientServiceImpl implements ClientService{
 		System.out.print("----ID-----"+c.getId()+"----"+c.getImage());
 		em.merge(client);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
+	}
+	
+	@Transactional
+	@Override
+	public boolean deleteClient(Integer id) {
+		Client c = em.find(Client.class, id);
+		c.setStatus(Status.deleted);
+		em.merge(c);
+		if (c.getStatus().equals(Status.deleted)){
+			return true;
+		}
+		return false;
 	}
 }

@@ -78,8 +78,27 @@ public class CursusAPI {
 	}
 	
 	@GetMapping(value="/getActivatedCursus")
-	public ResponseEntity<?> getActivatedPublication(){
+	public ResponseEntity<List<Cursus>> getActivatedPublication(){
 		return cursusService.getActivatedCursus();
+	}
+	
+	@PostMapping(value = "/update")
+	public ResponseEntity<Cursus> update(@RequestBody Cursus cursus) {
+		Cursus lastCursus = cursusService.findOneCursus(cursus.getId()).getBody();
+		List<Publication> lastListPublication = lastCursus.getListPublication();
+		
+		cursus.setCompany(lastCursus.getCompany());
+		cursus.setStatus(lastCursus.getStatus());
+		ResponseEntity<Cursus> c = cursusService.updateCursus(cursus);
+		for(int i=0;i<lastListPublication.size();i++) {
+			publicationService.deletePublicationCursus(lastListPublication.get(i).getId(), lastCursus);
+		}
+		List<Publication> listPublication = cursus.getListPublication();
+		for(int i=0;i<listPublication.size();i++) {
+			publicationService.updatePublication(listPublication.get(i).getId(), cursus);
+		}
+    	return c;
+	
 	}
 	
 }
