@@ -18,9 +18,10 @@ public class Image {
 
 	
 	@ManyToOne
-	@JsonIgnore
+	
 	private Publication publication;
 	
+	@JsonIgnore
 	public Publication getPublication() {
 		return publication;
 	}

@@ -33,8 +33,8 @@ public class Publication {
 	private Long cost;
 	private Integer duration;
 	private Date createdDate = new Date();
-	private Long latitude;
-	private Long longitude;
+	private Float latitude;
+	private Float longitude;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -61,6 +61,8 @@ public class Publication {
 	public void setVoteList(List<Vote> voteList) {
 		this.voteList = voteList;
 	}
+	
+	@JsonIgnore
 	public List<Cursus> getListCursus() {
 		return ListCursus;
 	}
@@ -124,16 +126,16 @@ public class Publication {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public Long getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Long latitude) {
+	public void setLatitude(Float latitude) {
 		this.latitude = latitude;
 	}
-	public Long getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Long longitude) {
+	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
 	@Override

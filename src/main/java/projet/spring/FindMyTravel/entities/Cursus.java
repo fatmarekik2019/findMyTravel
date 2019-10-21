@@ -34,6 +34,7 @@ public class Cursus {
 	@ManyToOne
 	private Company company;
 	
+	
 	@ManyToMany(mappedBy="ListCursus")
 	private List<Publication> ListPublication = new ArrayList<Publication>();
 	
@@ -63,7 +64,7 @@ public class Cursus {
 		this.company = company;
 	}
 	
-	@JsonIgnore
+	
 	public List<Publication> getListPublication() {
 		return ListPublication;
 	}

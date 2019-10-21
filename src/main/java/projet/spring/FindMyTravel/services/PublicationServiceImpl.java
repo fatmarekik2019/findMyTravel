@@ -30,6 +30,7 @@ public class PublicationServiceImpl implements PublicationService{
 	@Override
 	public ResponseEntity<Publication> addPublication(Publication p) {
 		p.setStatus(Status.draft);
+		System.out.print(p);
 		em.persist(p);
 		return ResponseEntity.ok().body(p);
 	}
