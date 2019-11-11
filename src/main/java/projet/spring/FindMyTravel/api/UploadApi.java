@@ -17,6 +17,7 @@ import projet.spring.FindMyTravel.filedemo.payload.UploadFileResponse;
 import projet.spring.FindMyTravel.services.ClientService;
 import projet.spring.FindMyTravel.services.CompanyService;
 import projet.spring.FindMyTravel.services.FileStorageService;
+import projet.spring.FindMyTravel.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +37,8 @@ public class UploadApi {
 
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private UserService userService;
     
     @Autowired
     private CompanyService companyService;
@@ -54,23 +57,13 @@ public class UploadApi {
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
-        
-       if(clientService.findOneClient(id)==ResponseEntity.ok()) {
-    	   Client c = new Client();
-           c.setId(id);
-           c.setImage(fileName);
-           clientService.updateImage(c);
-    	   
-       }else {
-    	   companyService.updateImage(id,fileName);
-
-       }
-        
-       
+        userService.updateImage(id, fileName);
+        System.out.print("ok  update");
 
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
+    
     
 //    @PostMapping("/uploadFilePub/{id}")
 //    public Integer uploadFilePub(@RequestParam("file") MultipartFile file, @PathVariable("id") Integer idPub) {

@@ -56,14 +56,14 @@ public class CompanyServiceImpl implements CompanyService{
 		return cr.getOne(id);
 	}
 	
-	@Transactional 
+	/*@Transactional 
 	@Override
 	public ResponseEntity<Company> updateImage(Integer id, String fileName){
 		Company c=em.find(Company.class, id);
 		c.setImage(fileName);
 		em.merge(c);
 		return ResponseEntity.ok().body(c);
-	}
+	}*/
 	@Transactional 
 	@Override
 	public ResponseEntity<Company> updateCompany(Company c){

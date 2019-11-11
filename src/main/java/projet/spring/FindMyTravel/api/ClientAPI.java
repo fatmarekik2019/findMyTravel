@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projet.spring.FindMyTravel.entities.Client;
+import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.services.ClientService;
 
 @RestController
@@ -30,12 +31,12 @@ public class ClientAPI {
 	
 	
 	@PostMapping(value="/addClient")
-	public String addClient(@RequestBody Client c){
+	public ResponseEntity<Client> addClient(@RequestBody Client c){
 		String encodedPssword = bCryptPasswordEncoder.encode(c.getPassword());
 		c.setImage("avatar.png");
 		c.setPassword(encodedPssword);
-		clientService.addClient(c);
-		return "client ajouté";
+		return clientService.addClient(c);
+		
 	}
 	
 	

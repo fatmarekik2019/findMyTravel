@@ -22,6 +22,17 @@ private Integer id;
 
 protected String userName;
 protected String password;
+protected String image;
+
+public String getImage() {
+	return image;
+}
+public void setImage(String image) {
+	this.image = image;
+}
+public String getUserName() {
+	return userName;
+}
 
 @Enumerated(EnumType.STRING)
 protected Status status;
@@ -34,10 +45,11 @@ public User() {
 	super();
 	// TODO Auto-generated constructor stub
 }
-public User(String userName, String password) {
+public User(String userName, String password, String image) {
 	super();
 	this.userName = userName;
 	this.password = password;
+	this.image = image;
 	//BCryptManagerUtil.passwordEncoder().encode(password);
 }
 

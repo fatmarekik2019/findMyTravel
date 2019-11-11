@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import projet.spring.FindMyTravel.entities.Client;
+import projet.spring.FindMyTravel.entities.Company;
 import projet.spring.FindMyTravel.entities.Cursus;
 import projet.spring.FindMyTravel.entities.Role;
 import projet.spring.FindMyTravel.entities.Status;
@@ -29,11 +30,12 @@ public class ClientServiceImpl implements ClientService{
 	
 	@Transactional
 	@Override
-	public String addClient(Client c) {
+	public ResponseEntity<Client> addClient(Client c) {
+		c.setImage("home.png");
 		c.setRole(Role.client);
 		c.setStatus(Status.activated);
 		em.persist(c);
-		return "ok";
+		return new ResponseEntity<Client>(c,HttpStatus.CREATED);
 	}
 	
 	@Transactional
@@ -96,15 +98,15 @@ public class ClientServiceImpl implements ClientService{
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
 	}
 	
-	@Transactional
+	/*@Transactional
 	@Override
-	public ResponseEntity<?> updateImage(Client c) {
-		Client client = em.find(Client.class, c.getId());
-		client.setImage(c.getImage());
-		System.out.print("----ID-----"+c.getId()+"----"+c.getImage());
+	public ResponseEntity<Client> updateImage(Integer id, String fileName) {
+		Client client = em.find(Client.class, id);
+		client.setImage(fileName);
+		//System.out.print("----ID-----"+id+"----"+fileName);
 		em.merge(client);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(client);
-	}
+	}*/
 	
 	@Transactional
 	@Override

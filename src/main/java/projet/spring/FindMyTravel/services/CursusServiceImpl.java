@@ -31,6 +31,8 @@ public class CursusServiceImpl implements CursusService{
 	@Transactional
 	@Override
 	public ResponseEntity<Cursus> addCursus(Cursus c) {
+		c.setStatus(Status.activated);
+		
 		em.persist(c);
 		return ResponseEntity.ok().body(c);
 	}

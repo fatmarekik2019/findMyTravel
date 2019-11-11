@@ -23,7 +23,7 @@ public class Client extends User{
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
-	private String image;
+	/*private String image;*/
 	private String statut;
 	
 	@Temporal(TemporalType.DATE)
@@ -45,12 +45,11 @@ public class Client extends User{
 	public Client() {
 		super();
 	}
-	public Client(String userName, String password, String firstName, String lastName, String image, String statut) {
+	public Client(String userName, String password, String firstName, String image, String lastName, String statut) {
 	
-		super(userName, password);
+		super(userName, password, image);
 		this.firstName=firstName;
 		this.lastName=lastName;
-		this.image=image;
 		this.statut=statut;
 	}
 
@@ -80,12 +79,7 @@ public class Client extends User{
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
+	
 	public String getStatut() {
 		return statut;
 	}

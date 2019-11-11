@@ -16,7 +16,7 @@ public interface CompanyService {
 	
 	Company getCompanyById(Integer id);
 	
-	ResponseEntity<Company> updateImage(Integer id, String fileName);
+	/*ResponseEntity<Company> updateImage(Integer id, String fileName);*/
 	
 	ResponseEntity<Company> updateCompany(Company c);
 
